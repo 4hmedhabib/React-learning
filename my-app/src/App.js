@@ -34,7 +34,9 @@ const App = (props) => {
 
   return (
     <div className="App">
-      <button onClick={switchNameHandler}>Switch Button</button>
+      <button onClick={switchNameHandler} className="btnHandler">
+        Toggle
+      </button>
       <h1>Hi, I am React 16.13 Version</h1>
       <Person
         name={personState.persons[0].name}

@@ -1,3 +1,21 @@
 .App {
   text-align: center;
 }
+
+.btnHandler {
+  width: 15%;
+  background-color: #2a6ebb;
+  outline: none;
+  color: white;
+  border-radius: 20px;
+  margin: auto;
+  margin-top: 40px;
+  padding: 10px;
+  border: 1px solid #2a6ebb;
+  box-shadow: 2px 3px 6px #ccc;
+}
+
+.btnHandler:hover {
+  background-color: #fcfcfc;
+  color: #2a6ebb;
+}
