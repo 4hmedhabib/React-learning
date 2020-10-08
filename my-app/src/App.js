@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Person from "./Person/Person";
 import "./App.css";
+import person from "./Person/Person";
 
 const App = (props) => {
   const [personState, setPersonState] = useState({
@@ -40,6 +41,28 @@ const App = (props) => {
     setPersonState({ persons: persons, showPerson: !doesShow });
   };
 
+  let persons = null;
+
+  if (personState.showPerson) {
+    persons = (
+      <div>
+        <Person
+          name={personState.persons[0].name}
+          age={personState.persons[0].age}
+        />
+        <Person
+          name={personState.persons[1].name}
+          age={personState.persons[1].age}
+          nameChange={nameChangeHandler}
+        />
+        <Person
+          name={personState.persons[2].name}
+          age={personState.persons[2].age}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <button
@@ -48,24 +71,7 @@ const App = (props) => {
       >
         Toggle Persons
       </button>
-
-      {personState.showPerson ? (
-        <div>
-          <Person
-            name={personState.persons[0].name}
-            age={personState.persons[0].age}
-          />
-          <Person
-            name={personState.persons[1].name}
-            age={personState.persons[1].age}
-            nameChange={nameChangeHandler}
-          />
-          <Person
-            name={personState.persons[2].name}
-            age={personState.persons[2].age}
-          />
-        </div>
-      ) : null}
+      {persons}
     </div>
   );
 };
