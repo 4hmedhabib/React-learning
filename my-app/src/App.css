@@ -13,9 +13,11 @@
   padding: 10px;
   border: 1px solid #2a6ebb;
   box-shadow: 2px 3px 6px #ccc;
+  font-size: 19px;
 }
 
 .btnHandler:hover {
   background-color: #fcfcfc;
   color: #2a6ebb;
+  font-size: 20px;
 }
