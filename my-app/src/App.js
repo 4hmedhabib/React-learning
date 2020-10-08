@@ -41,14 +41,28 @@ const App = (props) => {
     setPersonState({ persons: persons, showPerson: !doesShow });
   };
 
+  const deletePersonHandler = (personIndex) => {
+    const persons = personState.persons;
+    const showPersons = personState.showPerson;
+    persons.splice(personIndex, 1);
+    setPersonState({ persons: persons, showPerson: showPersons });
+  };
+
   let persons = null;
 
   if (personState.showPerson) {
     persons = (
       <div>
-        {personState.persons.map((person) => {
-          return <Person name={person.name} age={person.age} />;
+        {personState.persons.map((person, index) => {
+          return (
+            <Person
+              name={person.name}
+              age={person.age}
+              click={deletePersonHandler}
+            />
+          );
         })}
+        ;
       </div>
     );
   }
