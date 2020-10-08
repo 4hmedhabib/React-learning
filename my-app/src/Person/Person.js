@@ -2,7 +2,7 @@ import React from "react";
 import "./Person.css";
 
 const person = (props) => {
-  return (
+  return ( 
     <div className="Person">
       <p>
         Hi I'm {props.name} and I'am {props.age} years old.
