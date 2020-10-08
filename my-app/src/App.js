@@ -6,9 +6,9 @@ import person from "./Person/Person";
 const App = (props) => {
   const [personState, setPersonState] = useState({
     persons: [
-      { name: "Ahmed E. Habib", age: 19 },
-      { name: "Nasri Habib", age: 14 },
-      { name: "Marwa Habib", age: 12 },
+      { id: "p_01", name: "Ahmed E. Habib", age: 19 },
+      { id: "p_02", name: "Nasri Habib", age: 14 },
+      { id: "p_03", name: "Marwa Habib", age: 12 },
     ],
     otherState: "otherState",
     showPerson: false,
@@ -24,13 +24,22 @@ const App = (props) => {
   //   });
   // };
 
-  const nameChangeHandler = (event) => {
+  const nameChangeHandler = (event, id) => {
+    const personIndex = personState.persons.findIndex((p) => {
+      return p.id === id;
+    });
+
+    const person = {
+      ...personState.persons[personIndex],
+    };
+
+    person.name = event.target.value;
+
+    const persons = [...personState.persons];
+    persons[personIndex] = person;
+
     setPersonState({
-      persons: [
-        { name: "Ahmed E. Habib", age: 19 },
-        { name: event.target.value, age: 14 },
-        { name: "Marwa Habib", age: 12 },
-      ],
+      persons: persons,
       showPerson: personState.showPerson,
     });
   };
@@ -42,7 +51,7 @@ const App = (props) => {
   };
 
   const deletePersonHandler = (personIndex) => {
-    const persons = personState.persons;
+    const persons = [...personState.persons];
     const showPersons = personState.showPerson;
     persons.splice(personIndex, 1);
     setPersonState({ persons: persons, showPerson: showPersons });
@@ -58,7 +67,9 @@ const App = (props) => {
             <Person
               name={person.name}
               age={person.age}
-              click={deletePersonHandler}
+              click={() => deletePersonHandler(index)}
+              changed={(event) => nameChangeHandler(event, person.id)}
+              key={person.id}
             />
           );
         })}
