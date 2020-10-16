@@ -22,7 +22,7 @@ const App = (props) => {
   //       { name: "Marwa Habib", age: 12 },
   //     ],
   //   });
-  // };
+  //};
 
   const nameChangeHandler = (event, id) => {
     const personIndex = personState.persons.findIndex((p) => {
