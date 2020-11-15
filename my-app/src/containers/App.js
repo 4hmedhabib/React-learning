@@ -1,7 +1,11 @@
-import React, { useState } from "react";
-import Person from "./Person/Person";
-import "./App.css";
-import person from "./Person/Person";
+import React, { useState, useEffect } from "react";
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
+import WithClass from "../hoc/WithClass";
+
+import Person from "../components/Persons/Person/Person";
+import classes from "./App.css";
+import person from "../components/Persons/Person/Person";
 
 const App = (props) => {
   const [personState, setPersonState] = useState({
@@ -12,6 +16,7 @@ const App = (props) => {
     ],
     otherState: "otherState",
     showPerson: false,
+    showCockpit: true,
   });
 
   // const switchNameHandler = () => {
@@ -47,46 +52,61 @@ const App = (props) => {
   const togglePersonHandler = () => {
     const doesShow = personState.showPerson;
     const persons = personState.persons;
-    setPersonState({ persons: persons, showPerson: !doesShow });
+    const showCockpit = personState.showCockpit;
+    setPersonState({
+      persons: persons,
+      showPerson: !doesShow,
+      showCockpit: showCockpit,
+    });
   };
 
   const deletePersonHandler = (personIndex) => {
     const persons = [...personState.persons];
     const showPersons = personState.showPerson;
+    const showCockpit = personState.showCockpit;
     persons.splice(personIndex, 1);
-    setPersonState({ persons: persons, showPerson: showPersons });
+    setPersonState({
+      persons: persons,
+      showPerson: showPersons,
+      showCockpit: showCockpit,
+    });
+  };
+
+  const removedAll = () => {
+    const persons = [...personState.persons];
+    const showPerson = personState.showPerson;
+    setPersonState({
+      persons: persons,
+      showPerson: showPerson,
+      showCockpit: false,
+    });
   };
 
   let persons = null;
 
   if (personState.showPerson) {
     persons = (
-      <div>
-        {personState.persons.map((person, index) => {
-          return (
-            <Person
-              name={person.name}
-              age={person.age}
-              click={() => deletePersonHandler(index)}
-              changed={(event) => nameChangeHandler(event, person.id)}
-              key={person.id}
-            />
-          );
-        })}
-        ;
-      </div>
+      <Persons
+        persons={personState.persons}
+        deleted={deletePersonHandler}
+        changed={nameChangeHandler}
+      />
     );
   }
 
   return (
-    <div className="App">
-      <button
-        className="btnHandler"
-        onClick={togglePersonHandler /*switchNameHandler*/}
-      >
-        Toggle Persons
-      </button>
-      {persons}
+    <div>
+      <div className={classes.App}>
+        <button onClick={removedAll}>Romove All Persons</button>
+      </div>
+      <WithClass classes={classes.App}>
+        {personState.showCockpit ? (
+          <div>
+            <Cockpit toggle={togglePersonHandler} />
+            {persons}
+          </div>
+        ) : null}
+      </WithClass>
     </div>
   );
 };
